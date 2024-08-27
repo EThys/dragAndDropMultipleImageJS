@@ -1,6 +1,6 @@
 let files=[];
 const button=document.querySelector('.top button');
-const form=document.querySelector('.form');
+const form=document.querySelector('form');
 const container=document.querySelector('.container');
 const text=document.querySelector('.inner');
 const browse=document.querySelector('.select');
@@ -35,4 +35,22 @@ function handleFiles(files) {
       document.querySelector('.container').appendChild(imgElement);
     }
   }
+
+  form.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    form.classList.add('dragOver');
+    text.innerHTML="Drop images here"
+  });
+  
+  form.addEventListener('dragleave', () => {
+    form.classList.remove('dragOver');
+    text.innerHTML=`Drag and drop inages here or <span class="select">Browse</span>`
+  });
+  
+  form.addEventListener('drop', (e) => {
+    e.preventDefault();
+    form.classList.remove('dragOver');
+    console.log('Drop reussie');
+    handleFiles(e.dataTransfer.files);
+  });
 
